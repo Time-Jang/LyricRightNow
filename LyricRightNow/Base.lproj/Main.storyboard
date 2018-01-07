@@ -18,34 +18,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="N3q-I3-7bw">
-                                <rect key="frame" x="15" y="44" width="350" height="589"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="N3q-I3-7bw">
+                                <rect key="frame" x="0.0" y="40" width="0.0" height="33"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="2Ga-kb-yJR">
-                                        <rect key="frame" x="0.0" y="0.0" width="184.5" height="34"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="2Ga-kb-yJR">
+                                        <rect key="frame" x="0.0" y="0.0" width="189.5" height="32"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qc7-vP-dtS">
-                                                <rect key="frame" x="0.0" y="0.0" width="63" height="34"/>
+                                            <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qc7-vP-dtS">
+                                                <rect key="frame" x="0.0" y="0.0" width="73" height="32"/>
+                                                <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                                 <state key="normal" title="Refresh">
-                                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="titleColor" red="0.23456369375177546" green="0.28868733632339771" blue="0.71822376943005184" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="RefreshWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BZW-ws-1rh"/>
+                                                    <action selector="getLyricWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eje-II-2Eg"/>
+                                                </connections>
                                             </button>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Song's Name" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VRX-5b-MIY">
-                                                <rect key="frame" x="78" y="0.0" width="106.5" height="30"/>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song's Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0K-sf-lcg">
+                                                <rect key="frame" x="0.0" y="0.0" width="101.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="VRX-5b-MIY" secondAttribute="trailing" id="2b0-D0-4dr"/>
+                                            <constraint firstItem="U0K-sf-lcg" firstAttribute="leading" secondItem="Qc7-vP-dtS" secondAttribute="trailing" constant="15" id="4sx-b8-oaL"/>
+                                            <constraint firstItem="Qc7-vP-dtS" firstAttribute="leading" secondItem="2Ga-kb-yJR" secondAttribute="leading" id="WqA-dN-FKR"/>
                                         </constraints>
                                     </stackView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaU-Zw-e0r">
-                                        <rect key="frame" x="0.0" y="35" width="340" height="554"/>
+                                    <textView autoresizesSubviews="NO" opaque="NO" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" bounces="NO" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaU-Zw-e0r">
+                                        <rect key="frame" x="0.0" y="33" width="0.0" height="0.0"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <inset key="scrollIndicatorInsets" minX="5" minY="5" maxX="0.0" maxY="5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="I believe in you">
+                                                <attributes>
+                                                    <font key="NSFont" metaFont="system" size="14"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
@@ -56,12 +69,17 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="N3q-I3-7bw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="G1l-Vw-Ds9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="N3q-I3-7bw" secondAttribute="trailing" constant="10" id="NIg-EM-nXi"/>
-                            <constraint firstItem="N3q-I3-7bw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="Qui-4L-216"/>
+                            <constraint firstItem="N3q-I3-7bw" firstAttribute="top" secondItem="D1E-Dx-2iP" secondAttribute="top" constant="20" id="G1l-Vw-Ds9"/>
+                            <constraint firstItem="D1E-Dx-2iP" firstAttribute="trailing" secondItem="N3q-I3-7bw" secondAttribute="trailing" constant="10" id="NIg-EM-nXi"/>
+                            <constraint firstItem="N3q-I3-7bw" firstAttribute="leading" secondItem="D1E-Dx-2iP" secondAttribute="leading" constant="15" id="Qui-4L-216"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="D1E-Dx-2iP"/>
                     </view>
+                    <connections>
+                        <outlet property="Lyric" destination="MaU-Zw-e0r" id="8RI-Pi-jm3"/>
+                        <outlet property="Refresh_button" destination="Qc7-vP-dtS" id="BAg-p3-5Ej"/>
+                        <outlet property="song_name" destination="U0K-sf-lcg" id="FE8-Y9-Kyz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
