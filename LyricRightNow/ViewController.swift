@@ -47,12 +47,31 @@ class ViewController: UIViewController {
             return
         }
         var song_title: String = (player.nowPlayingItem?.title)!// "yesterday"
-        var song_title2 = song_title.components(separatedBy: "(Remastered")
-        song_title = song_title2[0]
         var song_singer: String = (player.nowPlayingItem?.artist)! //"The Beatles"
-        var song_singer2 = song_singer.components(separatedBy: "(")
-        song_singer = song_singer2[0]
         song_name.text = song_title
+        if(getLyric(song_title:song_title, song_singer:song_singer) != 1)
+        {
+            var song_singer2 = song_singer.components(separatedBy: "(")
+            if(getLyric(song_title:song_title, song_singer:song_singer2[0]) != 1)
+            {
+                var song_title2 = song_title.components(separatedBy: "(")
+                if(getLyric(song_title:song_title2[0], song_singer:song_singer) != 1)
+                {
+                    var song_singer2 = song_singer.components(separatedBy: "(")
+                    var song_title2 = song_title.components(separatedBy: "(")
+                    if(getLyric(song_title:song_title2[0], song_singer:song_singer2[0]) != 1)
+                    {
+                        self.Lyric.text = "ERROR"
+                    }
+
+                }
+            }
+        }
+        
+    }
+
+    func getLyric(song_title:String,song_singer:String) -> Int{
+        var rtn_value : Int = 0
         let msg_2: String = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:SOAP-ENC=\"http://www.w3.org/2003/05/soap-encoding\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:ns2=\"ALSongWebServer/Service1Soap\" xmlns:ns1=\"ALSongWebServer\" xmlns:ns3=\"ALSongWebServer/Service1Soap12\"><SOAP-ENV:Body><ns1:GetResembleLyric2><ns1:stQuery><ns1:strTitle>"
         let msg_3: String = "</ns1:strTitle><ns1:strArtistName>"
         let msg_4: String = "</ns1:strArtistName><ns1:nCurPage>0</ns1:nCurPage></ns1:stQuery></ns1:GetResembleLyric2></SOAP-ENV:Body></SOAP-ENV:Envelope>"
@@ -82,7 +101,7 @@ class ViewController: UIViewController {
                 var lyric_arr = responseString?.components(separatedBy: "<strLyric>")
                 lyric_arr = lyric_arr![1].components(separatedBy: "</strLyric>")
                 var str_lyric : String = lyric_arr![0]
-//                print(lyric_arr![0])
+                //                print(lyric_arr![0])
                 str_lyric = str_lyric.replacingOccurrences(of: "\n", with: "")
                 str_lyric = str_lyric.replacingOccurrences(of: "&lt;br&gt;", with: "\n")
                 //var lyric_timestamp : [Int] = []
@@ -97,24 +116,23 @@ class ViewController: UIViewController {
                     else
                     {
                         str_lyric.append(lyric_chars[i])
-                   //   print(str_lyric)
+                        //   print(str_lyric)
                         i = i + 1
                     }
                 }
                 DispatchQueue.main.async { // Correct
                     self.Lyric.text = str_lyric
                 }
+                rtn_value = 1
             }
             else
             {
                 print("responseString = \(String(describing: responseString ?? nil))")
-                DispatchQueue.main.async { // Correct
-                    self.Lyric.text = "Error"
-                }
+                rtn_value = -1
             }
         }
         task.resume()
-        
+        return rtn_value
     }
     
 }
