@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var song_name: UILabel!
     @IBOutlet weak var Lyric: UITextView!
     let host = "lyrics.alsong.co.kr"
-    let player = MPNowPlayingInfoCenter.default()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +24,8 @@ class ViewController: UIViewController {
         Refresh_button.layer.borderWidth = 1
         Lyric.layer.borderColor = UIColor.gray.cgColor
         Lyric.layer.borderWidth = 2
-        Lyric.scrollRangeToVisible(NSMakeRange(0, 0))
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+        
     }
     
     
@@ -35,14 +36,22 @@ class ViewController: UIViewController {
 
     @IBAction func getLyric(sender: UIButton)
     {
-        let mediaitem = player.nowPlayingInfo
-        if mediaitem == nil
-        {
-            print(1)
+        var player = MPMusicPlayerController.systemMusicPlayer
+        if player == nil{
+            print("player is nil")
             return
         }
-        let song_title: String = mediaitem![MPMediaItemPropertyTitle] as! String//"yesterday"
-        let song_singer: String = mediaitem![MPMediaItemPropertyArtist] as! String//"The Beatles"
+        if player.nowPlayingItem == nil
+        {
+            print("nowPlayingItem = nil")
+            return
+        }
+        var song_title: String = (player.nowPlayingItem?.title)!// "yesterday"
+        var song_title2 = song_title.components(separatedBy: "(Remastered")
+        song_title = song_title2[0]
+        var song_singer: String = (player.nowPlayingItem?.artist)! //"The Beatles"
+        var song_singer2 = song_singer.components(separatedBy: "(")
+        song_singer = song_singer2[0]
         song_name.text = song_title
         let msg_2: String = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:SOAP-ENC=\"http://www.w3.org/2003/05/soap-encoding\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:ns2=\"ALSongWebServer/Service1Soap\" xmlns:ns1=\"ALSongWebServer\" xmlns:ns3=\"ALSongWebServer/Service1Soap12\"><SOAP-ENV:Body><ns1:GetResembleLyric2><ns1:stQuery><ns1:strTitle>"
         let msg_3: String = "</ns1:strTitle><ns1:strArtistName>"
@@ -74,6 +83,7 @@ class ViewController: UIViewController {
                 lyric_arr = lyric_arr![1].components(separatedBy: "</strLyric>")
                 var str_lyric : String = lyric_arr![0]
 //                print(lyric_arr![0])
+                str_lyric = str_lyric.replacingOccurrences(of: "\n", with: "")
                 str_lyric = str_lyric.replacingOccurrences(of: "&lt;br&gt;", with: "\n")
                 //var lyric_timestamp : [Int] = []
                 let lyric_chars = Array(str_lyric)
@@ -87,7 +97,7 @@ class ViewController: UIViewController {
                     else
                     {
                         str_lyric.append(lyric_chars[i])
-  //                    print(str_lyric)
+                   //   print(str_lyric)
                         i = i + 1
                     }
                 }
@@ -98,11 +108,14 @@ class ViewController: UIViewController {
             else
             {
                 print("responseString = \(String(describing: responseString ?? nil))")
-
+                DispatchQueue.main.async { // Correct
+                    self.Lyric.text = "Error"
+                }
             }
         }
         task.resume()
         
     }
+    
 }
 
